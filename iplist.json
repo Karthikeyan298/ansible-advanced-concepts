@@ -1,0 +1,7 @@
+{
+    "ssh_user": "xyz",
+    "ssh_pass": "password",
+    "db_servers": ["10.128.26.72"],
+    "web_servers": ["10.128.27.6"],
+    "stand_alone_servers": ["172.17.0.5"]
+}

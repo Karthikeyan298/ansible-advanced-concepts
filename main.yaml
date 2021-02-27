@@ -1,0 +1,12 @@
+- name: Install MySQL DB
+  hosts: db_servers
+  roles:
+   - python
+   - mysql_db
+
+- name: Install Flask server
+  hosts: web_servers
+  roles:
+   - python
+   - flask_web  
+      

@@ -1,0 +1,36 @@
+- name: Install MySQL database
+  apt:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - mysql-server
+    - mysql-client
+
+- name: Change bind address to 0.0.0.0
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address		= 127\.0\.0\.1'
+    line: bind-address    = 0.0.0.0
+    
+
+- name: Start MySQL
+  shell: service mysql restart
+
+- name: Install mysql dep
+  pip:
+    name: flask-mysqldb
+    state: present
+    executable: /usr/bin/pip
+
+- name: Create MySQL database
+  mysql_db:
+    name: '{{ db_name }}'
+    state: present
+
+- name: Create MySQL user
+  mysql_user:
+    name: '{{ db_user }}'
+    password: '{{ db_password }}'
+    priv: '*.*:ALL'
+    host: '%'
+    state: present

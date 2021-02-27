@@ -1,0 +1,24 @@
+- name: Install python dependencies
+  pip:
+    name: '{{ item }}'
+    state: present
+    executable: /usr/bin/pip
+  with_items:
+    - flask
+    - PyMySQL==0.10.1
+    - flask-mysql
+
+- name: Copy source code
+  copy:
+    src: app.py
+    dest: /opt/app.py
+
+- name: Add DB Host in env variable
+  lineinfile:
+    path: '~/.profile'
+    line: export MYSQL_DATABASE_HOST={{ db_host }}
+
+- name: Start flask server
+  shell: MYSQL_DATABASE_HOST={{ db_host }} FLASK_APP=/opt/app.py flask run --host=0.0.0.0
+  async: 10
+  poll: 0

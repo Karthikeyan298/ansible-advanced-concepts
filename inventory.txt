@@ -1,0 +1,8 @@
+[db_servers]
+db_server1 ansible_host=10.128.26.72
+
+[web_servers]
+web_server1 ansible_host=10.128.27.6
+
+[stand_alone_servers]
+stand_alone_server ansible_host=172.17.0.5
